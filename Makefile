@@ -15,6 +15,10 @@ pkgchk.o: src/chk/pkgchk.c
 pkgchecker: src/pkgmain.c src/chk/pkgchk.c
 	$(CC) $^ $(INCLUDE) $(CFLAGS) $(LDFLAGS) -o $@
 
+pkgmain: src/pkgmain.c src/chk/pkgchk.c src/tree/merkletree.c src/crypt/sha256.c
+	$(CC) $^ $(INCLUDE) $(CFLAGS) $(LDFLAGS) -o $@
+
+
 # Required for Part 2 - Make sure it outputs `btide` file
 # in your directory ./
 btide: src/btide.c
