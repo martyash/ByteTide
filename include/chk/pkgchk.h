@@ -1,7 +1,11 @@
 #ifndef PKGCHK_H
 #define PKGCHK_H
+#define MAX_IDENT_LENGTH 1027
+#define MAX_FILENAME_LENGTH 257
+#define HASH_SIZE 65
 
 #include <stddef.h>
+#include <stdint.h>
 
 
 /**
@@ -11,13 +15,29 @@
  *    after malloc the space for each string
  *    Make sure you deallocate in the destroy function
  */
-struct bpkg_query {
-	char** hashes;
+typedef struct bpkg_query {
+	char** hashes; // pointer to a pointer of strings 
 	size_t len;
-};
+}bpkg_query;
 
-//TODO: Provide a definition
-struct bpkg_obj;
+typedef struct chunk { // part of a bpkg_object
+	char hash[HASH_SIZE];
+	uint32_t offset;
+	uint32_t size;
+
+}chunk;
+
+//TODO
+typedef struct bpkg_obj {
+	char identifier[MAX_IDENT_LENGTH];
+	char file_name[MAX_FILENAME_LENGTH];
+	uint32_t size;
+	uint32_t n_hashes;
+	char** hashes; // size unknown at compilation -- will be dynamically allocated
+	uint32_t n_chunks;
+	chunk** chunks;
+
+}bpkg_obj;
 
 
 /**
@@ -26,14 +46,10 @@ struct bpkg_obj;
 struct bpkg_obj* bpkg_load(const char* path);
 
 /**
- * Checks to see if the referenced filename in the bpkg file
- * exists or not.
  * @param bpkg, constructed bpkg object
- * @return query_result, a single string should be
- *      printable in hashes with len sized to 1.
- * 		If the file exists, hashes[0] should contain "File Exists"
- *		If the file does not exist, hashes[0] should contain "File Created"
+ * @return query_result, a single string should be     
  */
+
 struct bpkg_query bpkg_file_check(struct bpkg_obj* bpkg);
 
 /**

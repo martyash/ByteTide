@@ -163,8 +163,7 @@ void sha256_update(struct sha256_compute_data *data,
 
 //Derived from: https://en.wikipedia.org/wiki/SHA-2#Pseudocode
 //And https://github.com/LekKit/sha256/blob/master/sha256.c
-void sha256_finalize(struct sha256_compute_data *data, 
-		uint8_t hash[SHA256_INT_SZ]) {
+void sha256_finalize(struct sha256_compute_data *data) {
 	
 	
 

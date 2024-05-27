@@ -1,11 +1,12 @@
 #include <chk/pkgchk.h>
 #include <crypt/sha256.h>
+#include <tree/merkletree.h>
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
 
-#define SHA256_HEX_LEN (64)
+#define SHA256_HEX_LEN (65)
 
 
 
@@ -58,29 +59,27 @@ int main(int argc, char** argv) {
 
 	if(arg_select(argc, argv, &argselect, hash)) {
 		struct bpkg_query qry = { 0 };
-		struct bpkg_obj* obj = bpkg_load(argv[1]);
+		struct bpkg_obj* obj = bpkg_load(argv[1]); // already have object here
 		
-		if(!obj) {
+		if(!obj) { // no need for tree
 			puts("Unable to load pkg and tree");
 			exit(1);
 		}
 
-		if(argselect == 1) {
+		if(argselect == 1) { // no need for tree
 			qry = bpkg_get_all_hashes(obj);
 			bpkg_print_hashes(&qry);
 			bpkg_query_destroy(&qry);
-		} else if(argselect == 2) {
-
-			qry = bpkg_get_completed_chunks(obj);
+		} else if(argselect == 2) {// need tree			
+			qry = bpkg_get_completed_chunks(obj); 
 			bpkg_print_hashes(&qry);
 			bpkg_query_destroy(&qry);
-		} else if(argselect == 3) {
+		} else if(argselect == 3) { //need tree 
 
-			qry = bpkg_get_min_completed_hashes(obj);
+			qry = bpkg_get_min_completed_hashes(obj); 
 			bpkg_print_hashes(&qry);
 			bpkg_query_destroy(&qry);
 		} else if(argselect == 4) {
-
 			qry = bpkg_get_all_chunk_hashes_from_hash(obj, 
 					hash);
 			bpkg_print_hashes(&qry);
@@ -88,8 +87,8 @@ int main(int argc, char** argv) {
 		} else if(argselect == 5) {
 
 			qry = bpkg_file_check(obj);
-			bpkg_print_hashes(&qry);
-			bpkg_query_destroy(&qry);
+			 bpkg_print_hashes(&qry);
+			 bpkg_query_destroy(&qry);
 		} else {
 			puts("Argument is invalid");
 			return 1;
