@@ -20,8 +20,8 @@
 struct bpkg_obj* bpkg_load(const char* path) {
 
     char true_path[1024];
-    sprintf(true_path, "resources/pkgs/%s", path); // make real path as 'path' is just file name
-    FILE* file = fopen(true_path, "rb");
+    //sprintf(true_path, "resources/pkgs/%s", path); // make real path as 'path' is just file name
+    FILE* file = fopen(path, "rb");
     if (!file) return NULL;
     bpkg_obj* object = malloc(sizeof(bpkg_obj));
     char buffer[2048]; 
