@@ -321,7 +321,8 @@ struct bpkg_query bpkg_get_all_chunk_hashes_from_hash(struct bpkg_obj* bpkg,
     //printf("this is the hash %s\n",hash);
     for(int i = 0 ; i < tree->n_nodes ; i++){ // find the node
         if(strcmp(tree->nodes[i].expected_hash,hash) == 0){ // found in tree
-            index = i;                        
+            index = i;    
+            printf("found on index %i\n",index);                    
         }
     }
     //perform in order traversal to see how many nodes will be visited

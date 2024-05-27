@@ -153,16 +153,22 @@ struct merkle_tree* create_merkle_tree(bpkg_obj* obj){
     void in_order_traversal(merkle_tree_node* node, int* count){
         if(node){
             in_order_traversal(node->left, count);
-            (*count)++;  
+            if(node->is_leaf){
+                (*count)++;  
+            }
             in_order_traversal(node->right, count);
         }
     }
 
     void in_order_with_query(merkle_tree_node* node, bpkg_query* qry, int* index){
         if (node) {
-        in_order_with_query(node->left, qry, index);   
-        qry->hashes[*index] = strdup(node->expected_hash);
-        (*index)++; 
+        in_order_with_query(node->left, qry, index);
+        if(node->is_leaf){
+            if(*index < qry->len){
+                qry->hashes[*index] = strdup(node->expected_hash);
+                (*index)++; 
+            }
+        }   
         in_order_with_query(node->right, qry, index);
         }
     }
