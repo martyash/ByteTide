@@ -23,9 +23,9 @@ struct merkle_tree* create_merkle_tree(bpkg_obj* obj){
     // get the first leaf index to populate 
     int first_leaf_index = (1 << (height - 1)) - 1;
     // open the file just once 
-    char filepath[1024];
-    sprintf(filepath, "resources/pkgs/%s", obj->file_name);
-    FILE *f = fopen(filepath, "rb");
+    //char filepath[1024];
+    //sprintf(filepath, "resources/pkgs/%s", obj->file_name);
+    FILE *f = fopen(obj->file_name, "rb");
     if (f == NULL) {
     perror("Failed: ");   
     }
