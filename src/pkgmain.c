@@ -82,7 +82,7 @@
 						hash);
 				bpkg_print_hashes(&qry);
 				bpkg_query_destroy(&qry);
-			} else if(argselect == 5) {
+			} else if(argselect == 5) { // file check 
 
 				qry = bpkg_file_check(obj);
 				bpkg_print_hashes(&qry);

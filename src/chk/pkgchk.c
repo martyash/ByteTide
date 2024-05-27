@@ -137,7 +137,7 @@ struct bpkg_query bpkg_file_check(struct bpkg_obj* bpkg){
     bpkg_query file_check_query;
     // only 1 pointer needed 
     file_check_query.hashes = malloc(sizeof(char*)); // make pointer
-    file_check_query.hashes[0] = malloc(20* sizeof(char)); // malloc space for a string
+    //file_check_query.hashes[0] = malloc(20* sizeof(char)); // malloc space for a string
     file_check_query.len = 0;
 
     // sprintf (where to store, format, what to add)
@@ -146,13 +146,15 @@ struct bpkg_query bpkg_file_check(struct bpkg_obj* bpkg){
     FILE* data_file = fopen(bpkg->file_name, "rb+");
     if (!data_file){
         //create file of size bpkg->size
-        file_check_query.hashes[0] = strdup("File Created"); // statically allocated
-        file_check_query.len = 1;
-        for (size_t i = 0 ; i < bpkg->size; i++){
+        data_file = fopen(bpkg->file_name, "wb");
+        if (data_file){
+             file_check_query.hashes[0] = strdup("File Created"); // statically allocated
+            file_check_query.len = 1;
+            for (size_t i = 0 ; i < bpkg->size; i++){
             fputc(0, data_file);
         }
+        }
     }else{
-        //hashes[0] should contain file exists
         file_check_query.hashes[0] = strdup("File Exists");
         file_check_query.len = 1;
         //struct stat st;
