@@ -64,7 +64,7 @@
 				exit(1);
 			}
 
-			if(argselect == 1) { // no need for tree
+			if(argselect == 1) { // no need for tree // all_hashes done
 				qry = bpkg_get_all_hashes(obj);
 				bpkg_print_hashes(&qry);
 				bpkg_query_destroy(&qry);
@@ -77,12 +77,12 @@
 				qry = bpkg_get_min_completed_hashes(obj); 
 				bpkg_print_hashes(&qry);
 				bpkg_query_destroy(&qry);
-			} else if(argselect == 4) {
+			} else if(argselect == 4) { // hashes of
 				qry = bpkg_get_all_chunk_hashes_from_hash(obj, 
 						hash);
 				bpkg_print_hashes(&qry);
 				bpkg_query_destroy(&qry);
-			} else if(argselect == 5) { // file check 
+			} else if(argselect == 5) { // file check  done
 
 				qry = bpkg_file_check(obj);
 				bpkg_print_hashes(&qry);

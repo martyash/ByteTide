@@ -313,18 +313,21 @@ struct bpkg_query bpkg_get_min_completed_hashes(struct bpkg_obj* bpkg) {
 // retrieve chunks based on ancestor
 struct bpkg_query bpkg_get_all_chunk_hashes_from_hash(struct bpkg_obj* bpkg, 
     char* hash) {
-    bpkg_query qry;
+    bpkg_query qry = {0};
     qry.len = 0;
     qry.hashes = NULL;
     // create tree to get all hashes
     merkle_tree* tree = create_merkle_tree(bpkg);
     int index = 0; // will store the index of where the hash exists in the tree
     int count = 0;
-    //printf("this is the hash %s\n",hash);
+    if (!tree) {
+        fprintf(stderr, "Failed to create the Merkle tree\n");
+        return qry; // Return empty query safely if tree creation failed
+    }
+    
     for(int i = 0 ; i < tree->n_nodes ; i++){ // find the node
         if(strcmp(tree->nodes[i].expected_hash,hash) == 0){ // found in tree
-            index = i;    
-            printf("found on index %i\n",index);                    
+            index = i;                    
         }
     }
     //perform in order traversal to see how many nodes will be visited
