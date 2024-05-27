@@ -45,6 +45,6 @@ clean:
 
 valgrind:
 	$(CC) src/pkgmain.c src/chk/pkgchk.c src/tree/merkletree.c src/crypt/sha256.c $(INCLUDE) $(CFLAGS) $(LDFLAGS) -o pkgmain
-	valgrind --leak-check=full ./pkgmain file1.bpkg -chunk_check
+	valgrind --leak-check=full ./pkgmain 
     
 
