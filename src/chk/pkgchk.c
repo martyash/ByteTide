@@ -19,9 +19,9 @@
     
 struct bpkg_obj* bpkg_load(const char* path) {
 
-    char true_path[1024];
-    sprintf(true_path, "resources/pkgs/%s", path); // make real path as 'path' is just file name
-    FILE* file = fopen(true_path, "rb");
+    //char true_path[1024];
+    //sprintf(true_path, "resources/pkgs/%s", path); // make real path as 'path' is just file name
+    FILE* file = fopen(path, "rb");
     if (!file) return NULL;
     bpkg_obj* object = malloc(sizeof(bpkg_obj));
     char buffer[2048]; 
@@ -141,9 +141,9 @@ struct bpkg_query bpkg_file_check(struct bpkg_obj* bpkg){
     file_check_query.len = 0;
 
     // sprintf (where to store, format, what to add)
-    char file_location[1024];
-    sprintf(file_location, "resources/pkgs/%s", bpkg->file_name);
-    FILE* data_file = fopen(file_location, "rb+");
+    //char file_location[1024];
+    //sprintf(file_location, "resources/pkgs/%s", bpkg->file_name);
+    FILE* data_file = fopen(bpkg->file_name, "rb+");
     if (!data_file){
         //create file of size bpkg->size
         file_check_query.hashes[0] = strdup("File Created"); // statically allocated
