@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-Wall -std=c2x -g -fsanitize=address
+CFLAGS=-Wall -std=c2x -g 
 LDFLAGS=-lm -lpthread
 INCLUDE=-Iinclude
 
@@ -41,5 +41,10 @@ p2tests:
 
 clean:
 	rm -f objs/*
+
+
+valgrind:
+	$(CC) src/pkgmain.c src/chk/pkgchk.c src/tree/merkletree.c src/crypt/sha256.c $(INCLUDE) $(CFLAGS) $(LDFLAGS) -o pkgmain
+	valgrind --leak-check=full ./pkgmain file1.bpkg -chunk_check
     
 
