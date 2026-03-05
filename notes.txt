@@ -1,0 +1,15 @@
+
+Part 1.1:
+
+A file is composed of chunks ---> when chunks are combined --> Content of the file can be read by user
+
+A Package defines the information needed to construct the contents of a file 
+Packages represent a unique file given by an identifer ident 
+
+A package file is in .bpkg format and needs to be parsed by your program 
+
+
+part 1.2 creating merkle tree 
+
+sha256.c is used to crypt data 
+sha256chk.c is an example file to show you how to use sha256.c to crypt data 
